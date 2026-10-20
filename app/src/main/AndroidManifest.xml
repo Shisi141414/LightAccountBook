@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_wallet_lavender"
+        android:label="轻记账"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        <activity android:name=".MainActivity" android:exported="true" />
+        <activity-alias android:name=".LauncherLavender" android:targetActivity=".MainActivity"
+            android:enabled="true" android:exported="true" android:label="轻记账" android:icon="@mipmap/ic_wallet_lavender">
+            <intent-filter><action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+        </activity-alias>
+        <activity-alias android:name=".LauncherYellow" android:targetActivity=".MainActivity"
+            android:enabled="false" android:exported="true" android:label="轻记账" android:icon="@mipmap/ic_wallet_yellow">
+            <intent-filter><action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+        </activity-alias>
+        <activity-alias android:name=".LauncherPink" android:targetActivity=".MainActivity"
+            android:enabled="false" android:exported="true" android:label="轻记账" android:icon="@mipmap/ic_wallet_pink">
+            <intent-filter><action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+        </activity-alias>
+        <activity-alias android:name=".LauncherBlue" android:targetActivity=".MainActivity"
+            android:enabled="false" android:exported="true" android:label="轻记账" android:icon="@mipmap/ic_wallet_blue">
+            <intent-filter><action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+        </activity-alias>
+        <activity-alias android:name=".LauncherCyan" android:targetActivity=".MainActivity"
+            android:enabled="false" android:exported="true" android:label="轻记账" android:icon="@mipmap/ic_wallet_cyan">
+            <intent-filter><action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+        </activity-alias>
+        <activity-alias android:name=".LauncherGreen" android:targetActivity=".MainActivity"
+            android:enabled="false" android:exported="true" android:label="轻记账" android:icon="@mipmap/ic_wallet_green">
+            <intent-filter><action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+        </activity-alias>
+    </application>
+</manifest>
