@@ -10,6 +10,13 @@ import java.time.YearMonth
 import java.util.UUID
 
 class LedgerRulesTest {
+    @Test fun summaryPrecisionRoundsForDisplayWithoutFloatingPointLoss() {
+        assertEquals(listOf("999.99", "1000.0", "1000"), summaryAmountCandidates(99_999))
+        assertEquals(listOf("-0.01", "0.0", "0"), summaryAmountCandidates(-1))
+        assertEquals(listOf("-12.35", "-12.4", "-12"), summaryAmountCandidates(-1_235))
+        assertEquals("92233720368547758.07", summaryAmountCandidates(Long.MAX_VALUE).first())
+    }
+
     private val device = UUID.randomUUID().toString()
     private fun op(type: String, id: String, parents: List<String>, payload: String): LedgerOp =
         LedgerOp(UUID.randomUUID().toString(), type, id, parents.joinToString(","), payload,

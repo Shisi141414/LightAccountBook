@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,8 +22,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -41,17 +43,29 @@ fun IncomeExpenseBalanceRow(expenseCents: Long, incomeCents: Long, monthly: Bool
                 verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text(label, style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
-                val amount = "¥ ${formatCents(cents)}"
-                val amountSize = when {
-                    amount.length <= 10 -> 21.sp
-                    amount.length <= 12 -> 18.sp
-                    amount.length <= 15 -> 15.sp
-                    else -> 12.sp
-                }
-                Text(amount, fontSize = amountSize,
-                    fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                SummaryAmount(cents)
             }
         }
+    }
+}
+
+@Composable
+private fun SummaryAmount(cents: Long) {
+    val textMeasurer = rememberTextMeasurer()
+    val density = LocalDensity.current
+    val style = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp,
+        fontWeight = FontWeight.Bold, letterSpacing = 0.sp)
+    BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val availableWidth = with(density) { maxWidth.toPx() }
+        val candidates = summaryAmountCandidates(cents)
+        val amount = candidates.firstOrNull {
+            textMeasurer.measure(it, style, softWrap = false).size.width <= availableWidth
+        } ?: candidates.last()
+        val measuredWidth = textMeasurer.measure(amount, style, softWrap = false).size.width
+        // Very large integer values still fit in a single column without an ellipsis.
+        val size = (20f * (availableWidth / measuredWidth.coerceAtLeast(1))
+            .coerceIn(0.05f, 1f)).sp
+        Text(amount, style = style.copy(fontSize = size), maxLines = 1, softWrap = false)
     }
 }
 
