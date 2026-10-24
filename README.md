@@ -1,6 +1,6 @@
 # 轻记账
 
-**快速开始：**在 [下载页面](https://github.com/Shisi141414/LightAccountBook/releases/latest)下载.apk文件，打开安装即可
+**快速开始：** 在 [下载页面](https://github.com/Shisi141414/LightAccountBook/releases/latest)下载.apk文件，打开安装即可
 
 一款离线使用的安卓记账本，支持本地保存和文件夹同步。
 
